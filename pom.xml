@@ -4,7 +4,7 @@
 
     <groupId>io.testsmith</groupId>
     <artifactId>webdriver-event-listeners</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.2</version>
 
     <name>WebDriver event listeners</name>
     <description>Some default listeners that can help you to debug your tests.</description>
@@ -40,7 +40,7 @@
         <connection>scm:git:git@github.com:testsmith-io/webdriver-event-listeners.git</connection>
         <developerConnection>scm:git:git@github.com:testsmith-io/webdriver-event-listeners.git</developerConnection>
         <url>https://github.com/testsmith-io/webdriver-event-listeners</url>
-        <tag>webdriver-event-listeners-0.1-SNAPSHOT</tag>
+        <tag>webdriver-event-listeners-0.2</tag>
     </scm>
 
     <developers>
