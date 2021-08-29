@@ -1,4 +1,4 @@
-package io.testsmith.support.events;
+package io.testsmith.support.listeners;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.events.AbstractWebDriverEventListener;

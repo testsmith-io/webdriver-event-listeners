@@ -10,6 +10,7 @@ driver.register(new WebDriverLoggingListener());
 driver.register(new HighlightElementsListener());
 driver.register(new SavePageSourceOnExceptionListener());
 driver.register(new SaveScreenshotOnExceptionListener());
+driver.register(new WebDriverWaitListener());
 ```
 
 By default files are stored in `log/screenshots` and `log/pagesources`

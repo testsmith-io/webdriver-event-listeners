@@ -1,4 +1,4 @@
-package io.testsmith.support.events;
+package io.testsmith.support.listeners;
 
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
