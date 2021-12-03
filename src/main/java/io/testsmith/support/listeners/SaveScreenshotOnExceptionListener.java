@@ -3,23 +3,30 @@ package io.testsmith.support.listeners;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
+import org.openqa.selenium.support.events.WebDriverListener;
 
-public class SaveScreenshotOnExceptionListener extends AbstractWebDriverEventListener {
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Locale;
+
+public class SaveScreenshotOnExceptionListener implements WebDriverListener {
 
     private final String folder;
+    private final WebDriver driver;
 
-    public SaveScreenshotOnExceptionListener(String folder) {
+    public SaveScreenshotOnExceptionListener(WebDriver driver, String folder) {
         this.folder = folder;
+        this.driver = driver;
     }
 
-    public SaveScreenshotOnExceptionListener() {
+    public SaveScreenshotOnExceptionListener(WebDriver driver) {
+        this.driver = driver;
         this.folder = "log/screenshots";
     }
 
     @Override
-    public void onException(Throwable throwable, WebDriver driver) {
-        String filename = FileUtil.generateRandomFilename(throwable.getMessage()).concat(".png");
+    public void onError(Object target, Method method, Object[] args, InvocationTargetException e) {
+        String filename = FileUtil.generateRandomFilename(e.getTargetException().getMessage().toLowerCase(Locale.ROOT)).concat(".png");
         FileUtil.saveFile(folder, filename, screenshot(driver));
     }
 
@@ -27,6 +34,6 @@ public class SaveScreenshotOnExceptionListener extends AbstractWebDriverEventLis
         if (!TakesScreenshot.class.isAssignableFrom(driver.getClass())) {
             return null;
         }
-        return TakesScreenshot.class.cast(driver).getScreenshotAs(OutputType.BYTES);
+        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
     }
 }

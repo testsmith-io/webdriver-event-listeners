@@ -3,41 +3,41 @@ package io.testsmith.support.listeners;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
+import org.openqa.selenium.support.events.WebDriverListener;
 
 import java.util.logging.Logger;
 
-public class WebDriverLoggingListener extends AbstractWebDriverEventListener {
+public class WebDriverLoggingListener implements WebDriverListener {
 
     private static final java.util.logging.Logger logger = Logger.getLogger(WebDriverLoggingListener.class.getName());
 
     @Override
-    public void beforeNavigateBack(WebDriver driver) {
-        logger.info(String.format("URL before navigating to {%s}", driver.getCurrentUrl()));
+    public void beforeTo(WebDriver.Navigation navigation, String url) {
+        logger.info(String.format("URL before navigating to {%s}", url));
     }
 
     @Override
-    public void afterNavigateTo(String url, WebDriver driver) {
+    public void afterTo(WebDriver.Navigation navigation, String url) {
         logger.info(String.format("Navigated to {%s}", url));
     }
 
     @Override
-    public void beforeClickOn(WebElement element, WebDriver driver) {
+    public void beforeClick(WebElement element) {
         logger.info(String.format("Clicking element {%s}", element));
     }
 
     @Override
-    public void afterClickOn(WebElement element, WebDriver driver) {
+    public void afterClick(WebElement element) {
         logger.info(String.format("Clicked element {%s}", element));
     }
 
     @Override
-    public void beforeFindBy(By by, WebElement element, WebDriver driver) {
-        logger.info(String.format("Try to locate element using {%s}", by));
+    public void beforeFindElement(WebDriver driver, By locator) {
+        logger.info(String.format("Try to locate element using {%s}", locator));
     }
 
     @Override
-    public void afterFindBy(By by, WebElement element, WebDriver driver) {
-        logger.info(String.format("Located element using {%s}", by));
+    public void afterFindElement(WebDriver driver, By locator, WebElement result) {
+        logger.info(String.format("Located element using {%s}", locator));
     }
 }

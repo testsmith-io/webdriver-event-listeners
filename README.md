@@ -5,26 +5,31 @@
 # How does it work?
 
 ```java
-EventFiringWebDriver driver = new EventFiringWebDriver(new ChromeDriver());
-driver.register(new WebDriverLoggingListener());
-driver.register(new HighlightElementsListener());
-driver.register(new SavePageSourceOnExceptionListener());
-driver.register(new SaveScreenshotOnExceptionListener());
-driver.register(new WebDriverWaitListener());
+WebDriver originalDriver = new ChromeDriver();
+driver = new EventFiringDecorator(
+        new WebDriverLoggingListener(),
+        new SavePageSourceOnExceptionListener(originalDriver),
+        new WebDriverLoggingListener(),
+        new HighlightElementsListener(),
+        new SaveScreenshotOnExceptionListener(originalDriver),
+        new WebDriverWaitListener(originalDriver)
+).decorate(originalDriver);
 ```
 
-By default files are stored in `log/screenshots` and `log/pagesources`
+By default, files are stored in `log/screenshots` and `log/pagesources`
 
 You can override this location by specifying it in the constructor, like this:
 
 ```java
-EventFiringWebDriver driver = new EventFiringWebDriver(new ChromeDriver());
-driver.register(new SavePageSourceOnExceptionListener("target/log/pagesources"));
-driver.register(new SaveScreenshotOnExceptionListener("target/log/screenshots"));
+WebDriver originalDriver = new ChromeDriver();
+driver = new EventFiringDecorator(new WebDriverLoggingListener(),
+        new SavePageSourceOnExceptionListener(originalDriver, "target/log/pagesources"),
+        new SaveScreenshotOnExceptionListener(originalDriver, "target/log/screenshots"),
+).decorate(originalDriver);
 ```
 
 ## Roadmap
 - Chrome browser console log on failure
 
 ## Disclaimer
-- For now, `beforeChangeValueOf` and `afterChangeValueOf` are not included in the log due to security reasons.
+- For now, `beforeSendKeys` and `afterSendKeys` are not included in the log due to security reasons.

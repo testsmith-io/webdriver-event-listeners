@@ -7,6 +7,8 @@ import java.util.Date;
 
 public class FileUtil {
 
+    public static final int MAX_FILENAME = 50;
+
     protected static void saveFile(String folder, String filename, byte[] data) {
         try {
             File file = new File(folder, filename);
@@ -21,11 +23,12 @@ public class FileUtil {
     }
 
     protected static String generateRandomFilename(String filename) {
-        Date date = new Date();
+        if (filename.length() >= MAX_FILENAME) {
+            filename = filename.substring(0, MAX_FILENAME);
+        }
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmssSS");
-        int i = filename.indexOf('\n');
-        filename = filename.substring(0, i).replaceAll("\\s", "_").replaceAll(":", "");
-        return filename = dateFormat.format(date) +
+        filename = filename.replaceAll("\\s", "_").replaceAll(":", "");
+        return dateFormat.format(new Date()) +
                 "-" + filename;
     }
 
