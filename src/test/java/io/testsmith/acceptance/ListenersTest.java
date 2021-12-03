@@ -34,7 +34,7 @@ public class ListenersTest {
         driver.quit();
     }
 
-    @Test
+    @Test(expectedExceptions = {org.openqa.selenium.NoSuchElementException.class})
     public void useListeners() {
         driver.get("http://example.com/");
         WebElement header = driver.findElement(By.tagName("h1"));
