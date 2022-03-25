@@ -4,7 +4,7 @@
 
     <groupId>io.testsmith</groupId>
     <artifactId>webdriver-event-listeners</artifactId>
-    <version>0.6</version>
+    <version>0.7-SNAPSHOT</version>
 
     <name>WebDriver event listeners</name>
     <description>Some default listeners that can help you to debug your tests.</description>
